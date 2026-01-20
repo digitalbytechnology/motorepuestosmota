@@ -1,2 +1,29 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "admin-lte/dist/css/adminlte.min.css";
+
+/* ====== Layout fix SOLO escritorio ====== */
+@media (min-width: 992px) {
+  .main-sidebar{
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 1038;
+  }
+
+  .content-wrapper,
+  .main-footer,
+  .main-header{
+    margin-left: 250px !important;
+  }
+}
+
+/* ====== En móvil NO forzar márgenes ====== */
+@media (max-width: 991.98px) {
+  .content-wrapper,
+  .main-footer,
+  .main-header{
+    margin-left: 0 !important;
+  }
+}
