@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\AppointmentDayLimit;
 use Illuminate\Http\Request;
+use App\Services\WhatsAppService;
 use Carbon\Carbon;
 
 class AppointmentController extends Controller
@@ -59,44 +60,52 @@ class AppointmentController extends Controller
      * max_per_day = 0 bloquea el día
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'date' => ['required', 'date'],
-            'time' => ['required', 'date_format:H:i'],
-            'name' => ['required', 'string', 'max:150'],
-            'phone' => ['required', 'string', 'max:30'],
-            'observations' => ['nullable', 'string'],
-        ]);
+{
+    $request->validate([
+        'date' => ['required', 'date'],
+        'time' => ['required', 'date_format:H:i'],
+        'name' => ['required', 'string', 'max:150'],
+        'phone' => ['required', 'string', 'max:30'],
+        'observations' => ['nullable', 'string'],
+    ]);
 
-        // Límite específico del día (si existe). Si no existe => sin límite.
-        $dayLimit = AppointmentDayLimit::whereDate('date', $request->date)->value('max_per_day');
+    $fechaBonita = Carbon::parse($request->date)->format('d/m/Y');
 
-        if ($dayLimit !== null) {
-            $count = Appointment::whereDate('date', $request->date)->count();
+    // Límite específico del día (si existe). Si no existe => sin límite.
+    $dayLimit = AppointmentDayLimit::whereDate('date', $request->date)->value('max_per_day');
 
-            if ($count >= (int) $dayLimit) {
-                $fecha = Carbon::parse($request->date)->format('d/m/Y');
-
-                return response()->json([
-                    'message' => "Límite alcanzado para {$fecha}: máximo {$dayLimit} citas."
-                ], 422);
-            }
-        }
-
-        $appointment = Appointment::create([
-            'date' => $request->date,
-            'time' => $request->time,
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'observations' => $request->observations,
-            // attended queda por default false en BD
-        ]);
-
+    // Si existe override y es 0 => día bloqueado
+    if ($dayLimit !== null && (int)$dayLimit === 0) {
         return response()->json([
-            'message' => 'Cita agendada correctamente.',
-            'appointment' => $appointment,
-        ]);
+            'message' => "Día bloqueado {$fechaBonita}. No se pueden agendar citas."
+        ], 422);
     }
+
+    // Si existe override > 0 => validar cupo
+    if ($dayLimit !== null) {
+        $count = Appointment::whereDate('date', $request->date)->count();
+
+        if ($count >= (int)$dayLimit) {
+            return response()->json([
+                'message' => "Cupo lleno para {$fechaBonita}: máximo {$dayLimit} citas."
+            ], 422);
+        }
+    }
+
+    $appointment = Appointment::create([
+        'date' => $request->date,
+        'time' => $request->time, // H:i
+        'name' => $request->name,
+        'phone' => $request->phone,
+        'observations' => $request->observations,
+        // attended queda por default false en BD
+    ]);
+
+    return response()->json([
+        'message' => 'Cita agendada correctamente.',
+        'appointment' => $appointment,
+    ]);
+}
 
     /**
      * Update (editar cita)
