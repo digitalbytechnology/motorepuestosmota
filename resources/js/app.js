@@ -9,3 +9,6 @@ import "./bootstrap";
 
 // Importa el dashboard para que Vite lo compile
 import "./dashboard";
+import './datatables-users'
+import './datatables-clients'
+

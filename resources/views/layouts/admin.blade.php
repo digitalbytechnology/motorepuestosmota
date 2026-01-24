@@ -12,8 +12,12 @@
     {{-- Vite global --}}
     @vite(['resources/css/app.css','resources/js/app.js'])
 
-    {{-- Para CSS extra por vista (ej: citas) --}}
+    {{-- Para CSS extra por vista --}}
     @stack('css')
+
+    {{-- DataTables CSS (CDN) --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -60,7 +64,6 @@
                         </a>
                     </li>
 
-                    {{-- CITAS (visible para roles que quieras) --}}
                     @hasanyrole('admin|vendedor|mecanico')
                     <li class="nav-item">
                         <a href="{{ route('citas.index') }}"
@@ -142,7 +145,31 @@
 
 </div>
 
-{{-- Para JS extra por vista (ej: citas) --}}
-@stack('js')
+{{-- SCRIPTS al final del body (CORRECTO) --}}
+
+{{-- jQuery (CDN) --}}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+{{-- DataTables core --}}
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
+
+{{-- Buttons --}}
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js"></script>
+
+{{-- Excel / PDF deps --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+{{-- Buttons exports --}}
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+
+{{-- Stack correcto para tus vistas --}}
+@stack('scripts')
+
 </body>
 </html>

@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentDayLimitController;
-
+use App\Http\Controllers\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,6 +90,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->whereNumber('appointment')
             ->name('destroy');
     });
+
+     /*
+    |--------------------------------------------------------------------------
+    |Clientes
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('clients', ClientController::class);
+
+// Extra PRO: activar/inactivar
+Route::patch('clients/{client}/toggle-status', [ClientController::class, 'toggleStatus'])
+    ->name('clients.toggle-status');
 });
 
 require __DIR__ . '/auth.php';
