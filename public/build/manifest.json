@@ -34,10 +34,13 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-FFOAHruN.js",
+    "file": "assets/app-CGXoR9-s.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "resources/js/appointments.js"
+    ]
   },
   "resources/js/appointments.js": {
     "file": "assets/appointments-B9TyRpE3.js",

@@ -11,4 +11,4 @@ import "./bootstrap";
 import "./dashboard";
 import './datatables-users'
 import './datatables-clients'
-
+import './appointments' 
