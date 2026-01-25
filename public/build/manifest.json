@@ -1,0 +1,54 @@
+{
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-BfBXV7Mm.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-BVHPE7da.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-8GirhLYJ.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
+    "file": "assets/fa-v4compatibility-DnhYSyY-.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DpELk_ij.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/appointments.css": {
+    "file": "assets/appointments-DFbI_T8d.css",
+    "src": "resources/css/appointments.css",
+    "isEntry": true,
+    "name": "appointments",
+    "names": [
+      "appointments.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-FFOAHruN.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/appointments.js": {
+    "file": "assets/appointments-B9TyRpE3.js",
+    "name": "appointments",
+    "src": "resources/js/appointments.js",
+    "isEntry": true
+  },
+  "resources/js/day_limits.js": {
+    "file": "assets/day_limits-BixJJlC3.js",
+    "name": "day_limits",
+    "src": "resources/js/day_limits.js",
+    "isEntry": true
+  }
+}
