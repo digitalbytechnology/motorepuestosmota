@@ -98,6 +98,17 @@
 </li>
 @endhasanyrole
 
+@hasanyrole('admin|vendedor')
+<li class="nav-item">
+    <a href="{{ route('labors.index') }}"
+       class="nav-link {{ request()->routeIs('labors.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-wrench"></i>
+        <p>Mano de Obra</p>
+    </a>
+</li>
+@endhasanyrole
+
+
 
     {{-- Usuarios (solo admin) --}}
     @role('admin')
