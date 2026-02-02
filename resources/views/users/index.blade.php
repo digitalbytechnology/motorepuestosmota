@@ -60,5 +60,5 @@
 @endpush
 
 @push('js')
-  @vite('resources/js/users.js')
+
 @endpush

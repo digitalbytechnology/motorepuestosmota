@@ -13,4 +13,4 @@ import './datatables-users'
 import './datatables-clients'
 import './appointments' 
 import './clients'
-
+import './users'
