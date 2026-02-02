@@ -77,7 +77,6 @@
 @endsection
 
 @push('css')
-    @vite('resources/css/datatables.css')
 @endpush
 
 {{-- OJO: tu layout usa @stack('scripts'), así que este push debe llamarse scripts --}}

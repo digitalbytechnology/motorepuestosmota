@@ -56,7 +56,7 @@
 @endsection
 
 @push('css')
-  @vite('resources/css/datatables.css')
+
 @endpush
 
 @push('js')
