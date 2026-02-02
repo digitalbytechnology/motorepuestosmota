@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentDayLimitController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:mecanico|admin')->group(function () {
         Route::view('/taller', 'taller.index')->name('taller.index');
     });
+
+            /*
+        |----------------------------------------------------------------------
+        | Vehículos
+        |----------------------------------------------------------------------
+        */
+        Route::resource('vehiculos', VehicleController::class)
+            ->parameters(['vehiculos' => 'vehiculo']);
+
 
     /*
     |--------------------------------------------------------------------------

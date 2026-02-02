@@ -87,16 +87,17 @@
     </li>
     @endhasanyrole
 
-    {{-- Taller --}}
-    @hasanyrole('mecanico|admin')
-    <li class="nav-item">
-        <a href="{{ route('taller.index') }}"
-           class="nav-link {{ request()->routeIs('taller.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tools"></i>
-            <p>Taller</p>
-        </a>
-    </li>
-    @endhasanyrole
+    {{-- vehiculos --}}
+   @hasanyrole('admin|vendedor')
+<li class="nav-item">
+    <a href="{{ route('vehiculos.index') }}"
+       class="nav-link {{ request()->routeIs('vehiculos.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-car"></i>
+        <p>Vehículos</p>
+    </a>
+</li>
+@endhasanyrole
+
 
     {{-- Usuarios (solo admin) --}}
     @role('admin')
@@ -144,9 +145,6 @@
 </div>
 
 {{-- SCRIPTS al final del body (CORRECTO) --}}
-
-{{-- jQuery (CDN) --}}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 {{-- DataTables core --}}
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>

@@ -1,16 +1,17 @@
-import './bootstrap';
+import './bootstrap'
 
-import $ from 'jquery';
-window.$ = window.jQuery = $;
+// jQuery global (para DataTables / plugins)
+import $ from 'jquery'
+window.$ = window.jQuery = $
 
-import 'bootstrap';
-import 'admin-lte/dist/js/adminlte.min.js';
-import "./bootstrap";
+import 'bootstrap'
+import 'admin-lte/dist/js/adminlte.min.js'
 
-// Importa el dashboard para que Vite lo compile
-import "./dashboard";
+// módulos por vista (solo corren si existe el elemento en el DOM)
+import './dashboard'
+import './appointments'
+
+// datatables por módulo
 import './datatables-users'
 import './datatables-clients'
-import './appointments' 
-import './clients'
-import './users'
+import './datatables-vehicles'
