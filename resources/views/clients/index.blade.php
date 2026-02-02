@@ -12,7 +12,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title mb-0">Listado de clientes</h3>
 
-            <a href="{{ route('clients.create') }}" class="btn btn-sm btn-success">
+            <a href="{{ route('clientes.create') }}" class="btn btn-sm btn-success">
                 + Nuevo cliente
             </a>
         </div>
@@ -46,10 +46,10 @@
                             @endif
                         </td>
                         <td class="text-nowrap">
-                            <a class="btn btn-sm btn-info" href="{{ route('clients.show', $c) }}">Ver</a>
-                            <a class="btn btn-sm btn-warning" href="{{ route('clients.edit', $c) }}">Editar</a>
+                            <a class="btn btn-sm btn-info" href="{{ route('clientes.show', $c) }}">Ver</a>
+                            <a class="btn btn-sm btn-warning" href="{{ route('clientes.edit', $c) }}">Editar</a>
 
-                            <form method="POST" action="{{ route('clients.toggle-status', $c) }}" class="d-inline">
+                            <form method="POST" action="{{ route('clientes.toggle-status', $c) }}" class="d-inline">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit"
@@ -58,7 +58,7 @@
                                 </button>
                             </form>
 
-                            <form method="POST" action="{{ route('clients.destroy', $c) }}"
+                            <form method="POST" action="{{ route('clientes.destroy', $c) }}"
                                   class="d-inline"
                                   onsubmit="return confirm('¿Eliminar este cliente?')">
                                 @csrf
@@ -80,6 +80,7 @@
     @vite('resources/css/datatables.css')
 @endpush
 
-@push('js')
+{{-- OJO: tu layout usa @stack('scripts'), así que este push debe llamarse scripts --}}
+@push('scripts')
     @vite('resources/js/clients.js')
 @endpush

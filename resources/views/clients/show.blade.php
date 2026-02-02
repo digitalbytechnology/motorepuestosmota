@@ -5,11 +5,11 @@
 <div class="container-fluid">
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h3 class="card-title">Detalle del cliente</h3>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title mb-0">Detalle del cliente</h3>
             <div>
-                <a href="{{ route('clients.edit', $client) }}" class="btn btn-sm btn-warning">Editar</a>
-                <a href="{{ route('clients.index') }}" class="btn btn-sm btn-secondary">Volver</a>
+<a href="{{ route('clientes.edit', $client) }}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{{ route('clientes.index') }}" class="btn btn-sm btn-secondary">Volver</a>
             </div>
         </div>
 
@@ -19,6 +19,7 @@
             <p><strong>Dirección:</strong> {{ $client->address }}</p>
             <p><strong>Teléfono:</strong> {{ $client->phone }}</p>
             <p><strong>Correo:</strong> {{ $client->email }}</p>
+
             <p><strong>Estado:</strong>
                 @if($client->is_active)
                     <span class="badge badge-success">Activo</span>
@@ -26,9 +27,14 @@
                     <span class="badge badge-danger">Inactivo</span>
                 @endif
             </p>
+
             <p><strong>Notas:</strong> {{ $client->notes }}</p>
+
             <p class="text-muted mb-0">
-                <small>Creado: {{ $client->created_at }} | Actualizado: {{ $client->updated_at }}</small>
+                <small>
+                    Creado: {{ $client->created_at }} |
+                    Actualizado: {{ $client->updated_at }}
+                </small>
             </p>
         </div>
     </div>
