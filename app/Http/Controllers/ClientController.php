@@ -41,27 +41,27 @@ class ClientController extends Controller
      * Guardar
      */
     public function store(Request $request)
-    {
-        $data = $request->validate([
-            'document_type'   => ['required', Rule::in(['NIT', 'DPI'])],
-            'document_number' => ['required', 'string', 'max:20', 'unique:clients,document_number'],
-            'name'            => ['required', 'string', 'max:150'],
-            'address'         => ['nullable', 'string', 'max:255'],
-            'phone'           => ['nullable', 'string', 'max:30'],
-            'email'           => ['nullable', 'email', 'max:150'],
-            'is_active'       => ['nullable', 'boolean'],
-            'notes'           => ['nullable', 'string'],
-        ]);
+{
+    $data = $request->validate([
+        'document_type'   => ['required', 'string', 'max:10'],
+        'document_number' => ['required', 'string', 'max:20', 'unique:clients,document_number'],
+        'name'            => ['required', 'string', 'max:150'],
+        'address'         => ['nullable', 'string', 'max:255'],
+        'phone'           => ['nullable', 'string', 'max:30'],
+        'email'           => ['nullable', 'email', 'max:150'],
+        'is_active'       => ['nullable', 'boolean'],
+        'notes'           => ['nullable', 'string'],
+    ]);
 
-        // Si no viene is_active (checkbox), por defecto true
-        $data['is_active'] = $request->boolean('is_active', true);
+    $data['is_active'] = $request->boolean('is_active', true);
 
-        Client::create($data);
+    Client::create($data);
 
-        return redirect()
-            ->route('clients.index')
-            ->with('success', 'Cliente creado correctamente.');
-    }
+    return redirect()
+        ->route('clientes.index')
+        ->with('success', 'Cliente creado correctamente.');
+}
+
 
     /**
      * Ver detalle (opcional)
@@ -105,8 +105,9 @@ class ClientController extends Controller
         $client->update($data);
 
         return redirect()
-            ->route('clients.index')
-            ->with('success', 'Cliente actualizado correctamente.');
+    ->route('clientes.index')
+    ->with('success', 'Cliente actualizado correctamente.');
+
     }
 
     /**
@@ -117,8 +118,9 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()
-            ->route('clients.index')
-            ->with('success', ' Cliente eliminado correctamente.');
+    ->route('clientes.index')
+    ->with('success', ' Cliente eliminado correctamente.');
+
     }
 
     

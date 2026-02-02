@@ -1,6 +1,10 @@
 <?php
 
 return [
+    
+    'defaults' => [
+        'guard' => 'web',
+    ],
 
     'models' => [
 

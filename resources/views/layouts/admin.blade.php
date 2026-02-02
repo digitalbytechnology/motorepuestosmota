@@ -52,67 +52,65 @@
         <div class="sidebar">
             <nav class="mt-3">
                 <ul class="nav nav-pills nav-sidebar flex-column"
-                    data-widget="treeview"
-                    role="menu"
-                    data-accordion="false">
+    data-widget="treeview"
+    role="menu"
+    data-accordion="false">
 
-                    <li class="nav-item">
-                        <a href="{{ route('dashboard') }}"
-                           class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
+    {{-- Dashboard --}}
+    <li class="nav-item">
+        <a href="{{ route('dashboard') }}"
+           class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Dashboard</p>
+        </a>
+    </li>
 
-                    @hasanyrole('admin|vendedor|mecanico')
-                    <li class="nav-item">
-                        <a href="{{ route('citas.index') }}"
-                           class="nav-link {{ request()->routeIs('citas.*') ? 'active' : '' }}">
-                            <i class="nav-icon far fa-calendar-alt"></i>
-                            <p>Citas</p>
-                        </a>
-                    </li>
-                    @endhasanyrole
+    {{-- Citas --}}
+    @hasanyrole('admin|vendedor|mecanico')
+    <li class="nav-item">
+        <a href="{{ route('citas.index') }}"
+           class="nav-link {{ request()->routeIs('citas.*') ? 'active' : '' }}">
+            <i class="nav-icon far fa-calendar-alt"></i>
+            <p>Citas</p>
+        </a>
+    </li>
+    @endhasanyrole
 
-                    @role('admin')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.index') }}"
-                           class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>Administración</p>
-                        </a>
-                    </li>
+    {{-- Clientes --}}
+    @hasanyrole('admin|vendedor')
+    <li class="nav-item">
+        <a href="{{ route('clientes.index') }}"
+           class="nav-link {{ request()->routeIs('clientes.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-user-friends"></i>
+            <p>Clientes</p>
+        </a>
+    </li>
+    @endhasanyrole
 
-                    <li class="nav-item">
-                        <a href="{{ route('usuarios.index') }}"
-                           class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Usuarios</p>
-                        </a>
-                    </li>
-                    @endrole
+    {{-- Taller --}}
+    @hasanyrole('mecanico|admin')
+    <li class="nav-item">
+        <a href="{{ route('taller.index') }}"
+           class="nav-link {{ request()->routeIs('taller.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tools"></i>
+            <p>Taller</p>
+        </a>
+    </li>
+    @endhasanyrole
 
-                    @hasanyrole('vendedor|admin')
-                    <li class="nav-item">
-                        <a href="{{ route('ventas.index') }}"
-                           class="nav-link {{ request()->routeIs('ventas.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-cash-register"></i>
-                            <p>Ventas</p>
-                        </a>
-                    </li>
-                    @endhasanyrole
+    {{-- Usuarios (solo admin) --}}
+    @role('admin')
+    <li class="nav-item">
+        <a href="{{ route('usuarios.index') }}"
+           class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Usuarios</p>
+        </a>
+    </li>
+    @endrole
 
-                    @hasanyrole('mecanico|admin')
-                    <li class="nav-item">
-                        <a href="{{ route('taller.index') }}"
-                           class="nav-link {{ request()->routeIs('taller.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tools"></i>
-                            <p>Taller</p>
-                        </a>
-                    </li>
-                    @endhasanyrole
+</ul>
 
-                </ul>
             </nav>
         </div>
     </aside>

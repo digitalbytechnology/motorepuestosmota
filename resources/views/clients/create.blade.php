@@ -9,7 +9,7 @@
             <h3 class="card-title">Crear cliente</h3>
         </div>
 
-        <form method="POST" action="{{ route('clients.store') }}">
+        <form method="POST" action="{{ route('clientes.store') }}">
             @csrf
 
             <div class="card-body">
@@ -84,7 +84,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-between">
-                <a href="{{ route('clients.index') }}" class="btn btn-secondary">Volver</a>
+                <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Volver</a>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </div>
         </form>

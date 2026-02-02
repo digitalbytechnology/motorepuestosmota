@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentDayLimitController;
 use App\Http\Controllers\ClientController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,12 +46,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('usuarios', UserController::class);
     });
 
-    // Vendedor y admin
+    // Vendedor o admin
     Route::middleware('role:vendedor|admin')->group(function () {
         Route::view('/ventas', 'ventas.index')->name('ventas.index');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clientes
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('clientes', ClientController::class)
+            ->parameters(['clientes' => 'client']);
+
+        // Extra PRO: activar/inactivar
+        Route::patch('clientes/{client}/toggle-status', [ClientController::class, 'toggleStatus'])
+            ->name('clientes.toggle-status');
     });
 
-    // Mecánico y admin
+    // Mecánico o admin
     Route::middleware('role:mecanico|admin')->group(function () {
         Route::view('/taller', 'taller.index')->name('taller.index');
     });
@@ -90,17 +103,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->whereNumber('appointment')
             ->name('destroy');
     });
-
-     /*
-    |--------------------------------------------------------------------------
-    |Clientes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('clients', ClientController::class);
-
-// Extra PRO: activar/inactivar
-Route::patch('clients/{client}/toggle-status', [ClientController::class, 'toggleStatus'])
-    ->name('clients.toggle-status');
 });
 
 require __DIR__ . '/auth.php';

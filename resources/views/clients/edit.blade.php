@@ -9,7 +9,7 @@
             <h3 class="card-title">Editar cliente</h3>
         </div>
 
-        <form method="POST" action="{{ route('clients.update', $client) }}">
+        <form method="POST" action="{{ route('clientes.update', $client) }}">
             @csrf
             @method('PUT')
 
@@ -29,8 +29,8 @@
                     <div class="col-md-3">
                         <label>Tipo documento</label>
                         <select name="document_type" class="form-control">
-                            <option value="NIT" {{ old('document_type', $client->document_type)=='NIT' ? 'selected' : '' }}>NIT</option>
-                            <option value="DPI" {{ old('document_type', $client->document_type)=='DPI' ? 'selected' : '' }}>DPI</option>
+                            <option value="NIT" {{ old('document_type', $client->document_type) == 'NIT' ? 'selected' : '' }}>NIT</option>
+                            <option value="DPI" {{ old('document_type', $client->document_type) == 'DPI' ? 'selected' : '' }}>DPI</option>
                         </select>
                     </div>
 
@@ -76,7 +76,8 @@
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="form-check mt-4">
                             <input type="checkbox" name="is_active" class="form-check-input"
-                                   id="is_active" value="1" {{ old('is_active', $client->is_active) ? 'checked' : '' }}>
+                                   id="is_active" value="1"
+                                   {{ old('is_active', $client->is_active) ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_active">Cliente activo</label>
                         </div>
                     </div>
@@ -85,8 +86,8 @@
             </div>
 
             <div class="card-footer d-flex justify-content-between">
-                <a href="{{ route('clients.index') }}" class="btn btn-secondary">Volver</a>
-                <button type="submit" class="btn btn-success">Actualizar</button>
+                <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-success">Guardar cambios</button>
             </div>
         </form>
     </div>
