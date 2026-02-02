@@ -81,5 +81,4 @@
 
 {{-- OJO: tu layout usa @stack('scripts'), así que este push debe llamarse scripts --}}
 @push('scripts')
-    @vite('resources/js/clients.js')
 @endpush
