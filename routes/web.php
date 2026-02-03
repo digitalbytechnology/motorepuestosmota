@@ -8,6 +8,10 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentDayLimitController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\PartCategoryController;
+use App\Http\Controllers\PartController;
+use App\Http\Controllers\InventoryMovementController;
+use App\Http\Controllers\LaborController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +81,46 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('vehiculos', VehicleController::class)
             ->parameters(['vehiculos' => 'vehiculo']);
 
+     /*
+        |--------------------------------------------------------------------------
+        | Labores
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('labors', LaborController::class)
+            ->except('show');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Repuestos / Parts (Inventario)
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('parts', PartController::class)->except('show');
+
+        // Movimientos de inventario por repuesto (Part $part)
+        Route::prefix('parts/{part}/inventory')->name('inventory.')->group(function () {
+            Route::get('/create', [InventoryMovementController::class, 'create'])->name('create');
+            Route::post('/', [InventoryMovementController::class, 'store'])->name('store');
+            Route::get('/kardex', [InventoryMovementController::class, 'kardex'])->name('kardex');
+        });
+    });
+
+    /*
+|--------------------------------------------------------------------------
+| Categorías de Repuestos
+|--------------------------------------------------------------------------
+*/
+Route::resource('categories', PartCategoryController::class)
+    ->parameters(['categories' => 'category']);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN | MECÁNICO (Taller)
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware('role:admin|mecanico')->group(function () {
+        Route::view('/taller', 'taller.index')->name('taller.index');
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -113,6 +157,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->whereNumber('appointment')
             ->name('destroy');
     });
-});
+
 
 require __DIR__ . '/auth.php';

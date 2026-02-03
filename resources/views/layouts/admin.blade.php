@@ -97,6 +97,27 @@
     </a>
 </li>
 @endhasanyrole
+{{-- Categorías Repuestos --}}
+@hasanyrole('admin|vendedor')
+<li class="nav-item">
+  <a href="{{ route('categories.index') }}"
+     class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-tags"></i>
+    <p>Categorías</p>
+  </a>
+</li>
+@endhasanyrole
+
+{{-- Repuestos / Inventario --}}
+@hasanyrole('admin|vendedor')
+<li class="nav-item">
+  <a href="{{ route('parts.index') }}"
+     class="nav-link {{ request()->routeIs('parts.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-cogs"></i>
+    <p>Repuestos</p>
+  </a>
+</li>
+@endhasanyrole
 
 
     {{-- Usuarios (solo admin) --}}
