@@ -97,6 +97,17 @@
     </a>
 </li>
 @endhasanyrole
+
+@hasanyrole('admin|vendedor')
+<li class="nav-item">
+  <a href="{{ route('orders.index') }}"
+     class="nav-link {{ request()->routeIs('orders.*') ? 'active' : '' }}">
+    <i class="nav-icon fas fa-clipboard-list"></i>
+    <p>Órdenes</p>
+  </a>
+</li>
+@endhasanyrole
+
 {{-- Categorías Repuestos --}}
 @hasanyrole('admin|vendedor')
 <li class="nav-item">
