@@ -1,21 +1,12 @@
 import './bootstrap'
-
-// jQuery global (para DataTables / plugins)
-import $ from 'jquery'
-window.$ = window.jQuery = $
-
+import './jquery-global'
 import 'bootstrap'
 import 'admin-lte/dist/js/adminlte.min.js'
 
-// módulos por vista (solo corren si existe el elemento en el DOM)
+// módulos normales
 import './dashboard'
 import './appointments'
+import './order-inspection-page'
+import './orders-damages'
 
-// datatables por módulo
-import './datatables-users'
-import './datatables-clients'
-import './datatables-vehicles'
-import './datatables-parts'
-import './datatables-categories'
-import './order-inspection'
-import './datatables-orders'
+

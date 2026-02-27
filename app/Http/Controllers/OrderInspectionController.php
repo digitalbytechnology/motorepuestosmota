@@ -97,18 +97,38 @@ class OrderInspectionController extends Controller
     }
 
     public function saveAnnotations(Request $request, Order $order, OrderInspectionPhoto $photo)
-    {
-        if ($photo->inspection->order_id !== $order->id) abort(403);
+{
+    if ($photo->inspection->order_id !== $order->id) abort(403);
 
-        $data = $request->validate([
-            'annotations' => ['nullable','array'],
-        ]);
+    $data = $request->validate([
+        'annotations' => ['nullable','array'],
+        'preview_data_url' => ['nullable','string'], // NUEVO
+    ]);
 
-        $photo->annotations = $data['annotations'] ?? [];
-        $photo->save();
+    $photo->annotations = $data['annotations'] ?? [];
 
-        return response()->json(['ok' => true]);
+    // Guardar imagen "aplanada" (foto + marcas) en flattened_path
+    if (!empty($data['preview_data_url']) && str_starts_with($data['preview_data_url'], 'data:image')) {
+
+        // data:image/png;base64,XXXX
+        [$meta, $content] = explode(',', $data['preview_data_url'], 2);
+        $bin = base64_decode($content);
+
+        $path = "public/inspections/orders/{$order->id}/flattened/photo_{$photo->id}.png";
+        Storage::put($path, $bin);
+
+        // si ya existía una anterior, la reemplazamos (Storage::put ya sobreescribe)
+        $photo->flattened_path = $path;
     }
+
+    $photo->save();
+
+    return response()->json([
+        'ok' => true,
+        'preview_url' => $photo->flattened_path ? Storage::url($photo->flattened_path) : null,
+    ]);
+}
+
 
     public function saveSignature(Request $request, Order $order)
     {

@@ -97,6 +97,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Órdenes 
         
         Route::resource('orders', OrderController::class)->except('show');
+        Route::middleware(['auth'])->group(function () {
+    Route::get('/orders/{order}/damages', [\App\Http\Controllers\OrderDamageController::class, 'show']);
+    Route::post('/orders/{order}/damages', [\App\Http\Controllers\OrderDamageController::class, 'store']);
+});
+
     });
 
     /*

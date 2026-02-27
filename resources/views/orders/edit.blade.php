@@ -98,4 +98,15 @@
   </div>
 
 </div>
+<script>
+  window.__INSPECTION = {
+    orderId: {{ $order->id }},
+    saveAnnotationsUrlTemplate: @json(route('orders.inspection.photos.annotations', [$order, 999999])),
+    saveSignatureUrl: @json(route('orders.inspection.signature', $order)),
+    csrf: @json(csrf_token()),
+  };
+</script>
+
+
+
 @endsection

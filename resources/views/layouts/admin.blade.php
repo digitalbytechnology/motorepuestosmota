@@ -14,10 +14,6 @@
 
     {{-- Para CSS extra por vista --}}
     @stack('css')
-
-    {{-- DataTables CSS (CDN) --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -52,98 +48,97 @@
         <div class="sidebar">
             <nav class="mt-3">
                 <ul class="nav nav-pills nav-sidebar flex-column"
-    data-widget="treeview"
-    role="menu"
-    data-accordion="false">
+                    data-widget="treeview"
+                    role="menu"
+                    data-accordion="false">
 
-    {{-- Dashboard --}}
-    <li class="nav-item">
-        <a href="{{ route('dashboard') }}"
-           class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-home"></i>
-            <p>Dashboard</p>
-        </a>
-    </li>
+                    {{-- Dashboard --}}
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}"
+                           class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
 
-    {{-- Citas --}}
-    @hasanyrole('admin|vendedor|mecanico')
-    <li class="nav-item">
-        <a href="{{ route('citas.index') }}"
-           class="nav-link {{ request()->routeIs('citas.*') ? 'active' : '' }}">
-            <i class="nav-icon far fa-calendar-alt"></i>
-            <p>Citas</p>
-        </a>
-    </li>
-    @endhasanyrole
+                    {{-- Citas --}}
+                    @hasanyrole('admin|vendedor|mecanico')
+                    <li class="nav-item">
+                        <a href="{{ route('citas.index') }}"
+                           class="nav-link {{ request()->routeIs('citas.*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>Citas</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
-    {{-- Clientes --}}
-    @hasanyrole('admin|vendedor')
-    <li class="nav-item">
-        <a href="{{ route('clientes.index') }}"
-           class="nav-link {{ request()->routeIs('clientes.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-user-friends"></i>
-            <p>Clientes</p>
-        </a>
-    </li>
-    @endhasanyrole
+                    {{-- Clientes --}}
+                    @hasanyrole('admin|vendedor')
+                    <li class="nav-item">
+                        <a href="{{ route('clientes.index') }}"
+                           class="nav-link {{ request()->routeIs('clientes.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>Clientes</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
-    {{-- vehiculos --}}
-   @hasanyrole('admin|vendedor')
-<li class="nav-item">
-    <a href="{{ route('vehiculos.index') }}"
-       class="nav-link {{ request()->routeIs('vehiculos.*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-car"></i>
-        <p>Vehículos</p>
-    </a>
-</li>
-@endhasanyrole
+                    {{-- Vehículos --}}
+                    @hasanyrole('admin|vendedor')
+                    <li class="nav-item">
+                        <a href="{{ route('vehiculos.index') }}"
+                           class="nav-link {{ request()->routeIs('vehiculos.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-car"></i>
+                            <p>Vehículos</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
-@hasanyrole('admin|vendedor')
-<li class="nav-item">
-  <a href="{{ route('orders.index') }}"
-     class="nav-link {{ request()->routeIs('orders.*') ? 'active' : '' }}">
-    <i class="nav-icon fas fa-clipboard-list"></i>
-    <p>Órdenes</p>
-  </a>
-</li>
-@endhasanyrole
+                    {{-- Órdenes --}}
+                    @hasanyrole('admin|vendedor')
+                    <li class="nav-item">
+                        <a href="{{ route('orders.index') }}"
+                           class="nav-link {{ request()->routeIs('orders.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Órdenes</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
-{{-- Categorías Repuestos --}}
-@hasanyrole('admin|vendedor')
-<li class="nav-item">
-  <a href="{{ route('categories.index') }}"
-     class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
-    <i class="nav-icon fas fa-tags"></i>
-    <p>Categorías</p>
-  </a>
-</li>
-@endhasanyrole
+                    {{-- Categorías Repuestos --}}
+                    @hasanyrole('admin|vendedor')
+                    <li class="nav-item">
+                        <a href="{{ route('categories.index') }}"
+                           class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tags"></i>
+                            <p>Categorías</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
-{{-- Repuestos / Inventario --}}
-@hasanyrole('admin|vendedor')
-<li class="nav-item">
-  <a href="{{ route('parts.index') }}"
-     class="nav-link {{ request()->routeIs('parts.*') ? 'active' : '' }}">
-    <i class="nav-icon fas fa-cogs"></i>
-    <p>Repuestos</p>
-  </a>
-</li>
-@endhasanyrole
+                    {{-- Repuestos / Inventario --}}
+                    @hasanyrole('admin|vendedor')
+                    <li class="nav-item">
+                        <a href="{{ route('parts.index') }}"
+                           class="nav-link {{ request()->routeIs('parts.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>Repuestos</p>
+                        </a>
+                    </li>
+                    @endhasanyrole
 
+                    {{-- Usuarios (solo admin) --}}
+                    @role('admin')
+                    <li class="nav-item">
+                        <a href="{{ route('usuarios.index') }}"
+                           class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                    @endrole
 
-    {{-- Usuarios (solo admin) --}}
-    @role('admin')
-    <li class="nav-item">
-        <a href="{{ route('usuarios.index') }}"
-           class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Usuarios</p>
-        </a>
-    </li>
-    @endrole
-
-</ul>
-
+                </ul>
             </nav>
         </div>
     </aside>
@@ -176,27 +171,6 @@
 
 </div>
 
-{{-- SCRIPTS al final del body (CORRECTO) --}}
-
-{{-- DataTables core --}}
-<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
-
-{{-- Buttons --}}
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js"></script>
-
-{{-- Excel / PDF deps --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
-{{-- Buttons exports --}}
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-
-{{-- Stack correcto para tus vistas --}}
 @stack('scripts')
 
 </body>

@@ -7,13 +7,21 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
       <div><b>Orden:</b> #{{ $order->id }}</div>
-      <div class="text-muted"><b>Vehículo:</b> {{ $order->vehicle->placa ?? '-' }} | <b>Cliente:</b> {{ $order->client->name ?? '-' }}</div>
+      <div class="text-muted">
+        <b>Vehículo:</b> {{ $order->vehicle->placa ?? '-' }} |
+        <b>Cliente:</b> {{ $order->client->name ?? '-' }}
+      </div>
     </div>
   </div>
 
   @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
   @endif
+
+  {{-- Metas para JS (sin JS inline) --}}
+  <meta name="inspection-order-id" content="{{ $order->id }}">
+  <meta name="inspection-save-annotations-url" content="{{ route('orders.inspection.photos.annotations', [$order, 999999]) }}">
+  <meta name="inspection-save-signature-url" content="{{ route('orders.inspection.signature', $order) }}">
 
   {{-- Tabs --}}
   <div class="card">
@@ -62,6 +70,7 @@
             </div>
 
             <hr>
+
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
@@ -135,7 +144,7 @@
               </div>
             </div>
 
-            <button class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
           </form>
         </div>
 
@@ -219,7 +228,7 @@
               </div>
             </div>
 
-            <button class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
           </form>
         </div>
 
@@ -229,7 +238,7 @@
             @csrf
             <div class="d-flex align-items-center gap-2">
               <input type="file" name="photos[]" accept="image/*" capture="environment" multiple class="form-control">
-              <button class="btn btn-primary"><i class="fas fa-camera"></i> Subir</button>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-camera"></i> Subir</button>
             </div>
             <small class="text-muted">Puedes tomar varias fotos desde el celular.</small>
           </form>
@@ -238,9 +247,15 @@
             @foreach($inspection->photos as $photo)
               <div class="col-md-3 mb-3">
                 <div class="card">
-                  <img src="{{ Storage::url($photo->path) }}" class="card-img-top" style="object-fit:cover;height:160px;">
+                  <img
+                    src="{{ Storage::url($photo->flattened_path ?: $photo->path) }}"
+                    class="card-img-top"
+                    style="object-fit:cover;height:160px;"
+                  >
+
                   <div class="card-body p-2">
                     <button
+                      type="button"
                       class="btn btn-sm btn-info btn-open-annotator w-100"
                       data-photo-id="{{ $photo->id }}"
                       data-photo-url="{{ Storage::url($photo->path) }}"
@@ -249,10 +264,12 @@
                       Marcar daños
                     </button>
 
-                    <form action="{{ route('orders.inspection.photos.destroy', [$order,$photo]) }}" method="POST" class="mt-2"
+                    <form action="{{ route('orders.inspection.photos.destroy', [$order,$photo]) }}"
+                          method="POST"
+                          class="mt-2"
                           onsubmit="return confirm('¿Eliminar esta foto?')">
                       @csrf @method('DELETE')
-                      <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                      <button type="submit" class="btn btn-sm btn-danger w-100">Eliminar</button>
                     </form>
                   </div>
                 </div>
@@ -261,13 +278,16 @@
           </div>
 
           {{-- Modal annotator --}}
-          <div class="modal fade" id="annotatorModal" tabindex="-1">
+          <div class="modal fade" id="annotatorModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">Marcar daños</h5>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+
                 <div class="modal-body">
                   <div class="d-flex flex-wrap gap-2 mb-2">
                     <select id="damageType" class="form-control" style="width:220px;">
@@ -287,8 +307,8 @@
                     </select>
 
                     <input id="damageNote" class="form-control" style="max-width:320px;" placeholder="Comentario corto (opcional)">
-                    <button id="btnSaveAnnotations" class="btn btn-primary">Guardar marcas</button>
-                    <button id="btnClearAnnotations" class="btn btn-outline-danger">Limpiar</button>
+                    <button id="btnSaveAnnotations" type="button" class="btn btn-primary">Guardar marcas</button>
+                    <button id="btnClearAnnotations" type="button" class="btn btn-outline-danger">Limpiar</button>
                   </div>
 
                   <div id="konvaContainer" style="width:100%;border:1px solid #ddd;min-height:520px;"></div>
@@ -296,7 +316,6 @@
               </div>
             </div>
           </div>
-
         </div>
 
         {{-- TAB 4: Firma --}}
@@ -308,10 +327,11 @@
                 <canvas id="signaturePad" width="500" height="220" style="width:100%;height:220px;"></canvas>
               </div>
               <div class="mt-2 d-flex gap-2">
-                <button class="btn btn-outline-danger" id="sigClear">Limpiar</button>
-                <button class="btn btn-primary" id="sigSave">Guardar firma</button>
+                <button type="button" class="btn btn-outline-danger" id="sigClear">Limpiar</button>
+                <button type="button" class="btn btn-primary" id="sigSave">Guardar firma</button>
               </div>
             </div>
+
             <div class="col-md-6">
               <p class="text-muted">Firma guardada:</p>
               @if($inspection->firma_path)
@@ -329,14 +349,3 @@
 
 </div>
 @endsection
-
-@push('scripts')
-<script>
-  window.__INSPECTION = {
-    orderId: {{ $order->id }},
-    saveAnnotationsUrlTemplate: @json(route('orders.inspection.photos.annotations', [$order, 999999])),
-    saveSignatureUrl: @json(route('orders.inspection.signature', $order)),
-    csrf: @json(csrf_token()),
-  };
-</script>
-@endpush
